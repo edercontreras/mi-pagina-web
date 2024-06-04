@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModaPerfecta.com</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function agregarAlCarrito(nombreProducto) {
+            alert("¡" + nombreProducto + " se ha añadido al carrito!");
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">ModaPerfecta.com</div>
+        <nav>
+            <ul>
+                <li><a href="#">Hombres</a></li>
+                <li><a href="#">Mujeres</a></li>
+                <li><a href="#">Niños</a></li>
+                <li><a href="#">Accesorios</a></li>
+                <li><a href="#">Ofertas</a></li>
+                <li><a href="#">Novedades</a></li>
+            </ul>
+        </nav>
+        <div class="icons">
+            <a href="#"><img src="ass.png" alt="Carrito"></a>
+            <a href="#"><img src="user-icon.png" alt="Usuario"></a>
+            <a href="#"><img src="search-icon.png" alt="Buscar"></a>
+        </div>
+    </header>
+    
+    <main>
+        <aside class="sidebar">
+            <h3>Filtrar por:</h3>
+            <form>
+                <label for="size">Talla:</label>
+                <select id="size" name="size">
+                    <option value="s">S</option>
+                    <option value="m">M</option>
+                    <option value="l">L</option>
+                </select>
+                <label for="color">Color:</label>
+                <select id="color" name="color">
+                    <option value="red">Rojo</option>
+                    <option value="blue">Azul</option>
+                    <option value="black">Negro</option>
+                </select>
+                <label for="price">Precio:</label>
+                <select id="price" name="price">
+                    <option value="low-high">De menor a mayor</option>
+                    <option value="high-low">De mayor a menor</option>
+                </select>
+                <button type="submit">Aplicar</button>
+            </form>
+        </aside>
+        <div class="content">
+            <div class="banner">
+                <img src="promo1.jpg" alt="Promoción 1">
+                <img src="promo2.jpg" alt="Promoción 2">
+            </div>
+            <section class="featured-products">
+                <h2>Productos Destacados</h2>
+                <div class="product-grid">
+                    <?php
+                    include 'conexion.php';
+                    $sql = "SELECT nombre, precio, imagen FROM productos WHERE stock > 0";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                            echo "<div class='product'>";
+                            echo "<img src='" . $row["imagen"] . "' alt='" . $row["nombre"] . "'>";
+                            echo "<h3>" . $row["nombre"] . "</h3>";
+                            echo "<p class='price'>$" . $row["precio"] . "</p>";
+                            echo "<button onclick=\"agregarAlCarrito('" . $row["nombre"] . "')\">Añadir al carrito</button>";
+                            echo "</div>";
+                        }
+                    } else {
+                        echo "No hay productos disponibles.";
+                    }
+
+                    $conn->close();
+                    ?>
+                </div>
+            </section>
+            <section class="popular-categories">
+                <h2>Categorías Populares</h2>
+                <div class="categories-grid">
+                    <!-- Categorías -->
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="quick-links">
+            <a href="#">Política de Devoluciones</a>
+            <a href="#">Contacto</a>
+            <a href="#">Ubicaciones de Tiendas</a>
+            <a href="#">Suscripción a Newsletter</a>
+        </div>
+        <div class="social-media">
+            <a href="https://www.facebook.com/ModaPerfecta"><img src="facebook-icon.png" alt="Facebook"></a>
+            <a href="https://www.instagram.com/ModaPerfecta"><img src="instagram-icon.png" alt="Instagram"></a>
+            <a href="https://twitter.com/ModaPerfecta"><img src="twitter-icon.png" alt="Twitter"></a>
+        </div>
+    </footer>
+</body>
+</html>

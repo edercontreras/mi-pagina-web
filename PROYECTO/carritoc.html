@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <style>
+        /* Estilos básicos */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        .container {
+            margin: 20px;
+        }
+        .product {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Carrito de Compras</h1>
+    </header>
+    <div class="container">
+        <div class="product" onclick="addToCart('Producto 1',499.99)">
+            <span>Vestido Floral</span>
+            <span>Precio: $499.99</span>
+        </div>
+        <div class="product" onclick="addToCart('Producto 2', 299.99)">
+            <span>Camisa de Mezclilla</span>
+            <span>Precio: $299.99</span>
+        </div>
+        <div class="product" onclick="addToCart('Producto 3', 599.99)">
+            <span>Zapatillas Deportivas</span>
+            <span>Precio: $599.99</span>
+        </div>
+        <div id="cart">
+            <h2>Carrito de Compras</h2>
+            <ul id="cart-items"></ul>
+            <p>Total: <span id="cart-total">$0</span></p>
+        </div>
+    </div>
+
+    <script>
+        // Función para añadir productos al carrito
+        function addToCart(producto, precio) {
+            var cartItems = document.getElementById("cart-items");
+            var cartTotal = document.getElementById("cart-total");
+            var total = parseFloat(cartTotal.textContent.replace("$", ""));
+            total += precio;
+            cartTotal.textContent = "$" + total.toFixed(2);
+
+            var item = document.createElement("li");
+            item.textContent = producto + " - $" + precio;
+            cartItems.appendChild(item);
+        }
+    </script>
+</body>
+</html>
